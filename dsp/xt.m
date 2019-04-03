@@ -1,0 +1,21 @@
+FS=100000;  
+T=1/FS; N=FS; n=0:N-1;
+f1=5000; f2=10000; f3=20000;
+xn=cos(2*pi*f1*n*T)+cos(2*pi*f2*n*T)+cos(2*pi*f3*n*T)+randn(size(n));
+NFFT=2^nextpow2(N);
+y=fft(xn,NFFT)/N;
+f=FS/2*linspace(0,1,NFFT/2+1);
+figure(1);
+subplot(2,1,1);
+plot(f,2*abs(y(1:NFFT/2+1)));
+title('Frequency Domain');
+xlabel('f(Hz)');
+ylabel('Amplitude');
+
+n1=0:(2000/N):1;
+xn1=cos(2*pi*f1*n1)+cos(2*pi*f2*n1)+cos(2*pi*f3*n1)+randn(size(n1));
+subplot(2,1,2);
+plot(n1,xn1);
+title('Time Domain');
+xlabel('t(s)');
+ylabel('Amplitude');
